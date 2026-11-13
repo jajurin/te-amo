@@ -1,0 +1,103 @@
+.dino {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  background: rgba(122, 32, 72, 0.93);
+  border: 4px solid #fff;
+  box-shadow: 0 0 0 4px #ff6fa5, 10px 10px 0 4px #4a1230;
+  font-family: 'Press Start 2P', monospace;
+  color: #fff;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.dino__cabecera {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: clamp(9px, 2.4vw, 14px);
+  color: #ffb7c5;
+  text-transform: uppercase;
+}
+
+.dino__pantalla {
+  background-color: #4a1230;
+  background-size: cover;
+  background-position: center;
+  border: 4px solid #fff;
+  box-shadow: 6px 6px 0 #ff6fa5;
+  touch-action: manipulation;
+}
+
+.dino__canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+.dino__panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 24px 16px;
+  text-align: center;
+  background: rgba(74, 18, 48, 0.65);
+  border: 4px solid #ff6fa5;
+  box-shadow: 6px 6px 0 #4a1230;
+  font-size: clamp(9px, 2.4vw, 13px);
+  line-height: 2;
+}
+
+.dino__panel p {
+  margin: 0;
+}
+
+.dino__titulo {
+  margin: 0;
+  font-size: clamp(14px, 4vw, 26px);
+  line-height: 1.5;
+  text-shadow: 3px 3px 0 #ff6fa5;
+}
+
+.dino__ayuda {
+  color: #ffb7c5;
+}
+
+.dino__controles {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.dino__boton {
+  padding: 14px 16px;
+  font-family: inherit;
+  font-size: clamp(9px, 2.4vw, 14px);
+  color: #fff;
+  background: transparent;
+  border: 4px solid #fff;
+  box-shadow: 4px 4px 0 #ff6fa5;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.dino__boton:hover {
+  background: #ff6fa5;
+}
+
+.dino__boton:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
+
+.dino__boton--principal {
+  background: #ff6fa5;
+}
