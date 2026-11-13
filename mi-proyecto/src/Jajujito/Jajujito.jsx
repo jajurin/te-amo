@@ -107,12 +107,13 @@ const salto = () => ({
   y: (Math.random() < 0.5 ? -1 : 1) * (30 + Math.random() * 50),
 })
 
-function Jajujito({ onVolver }) {
+function Jajujito({ onVolver, onTerminar }) {
   const [i, setI] = useState(0)
   const [elegida, setElegida] = useState(null)
   const [aciertos, setAciertos] = useState(0)
   const [fase, setFase] = useState('quiz') // 'quiz' | 'final'
   const [saltos, setSaltos] = useState({})
+  const [historial, setHistorial] = useState([])
 
   // estado de la pantalla final
   const [dijoSi, setDijoSi] = useState(false)
@@ -128,7 +129,13 @@ function Jajujito({ onVolver }) {
             <h2 className="jj__amo">te amo ♥</h2>
             <p className="jj__pregunta">{FINAL.texto}</p>
             <div className="jj__botones">
-              <button className="boton" onClick={() => setDijoSi(true)}>
+              <button
+                className="boton"
+                onClick={() => {
+                  setDijoSi(true)
+                  onTerminar?.({ historial, aciertos, total: PREGUNTAS.length })
+                }}
+              >
                 {FINAL.si}
               </button>
               <button
@@ -168,6 +175,13 @@ function Jajujito({ onVolver }) {
     if (p.respuestas[n].huye) return esquivar(n)
 
     setElegida(n)
+    setHistorial(h => [
+      ...h,
+      {
+        pregunta: p.texto,
+        respuesta: p.respuestas[n].texto + (esCorrecta(n) ? ' ✔' : ' ✖'),
+      },
+    ])
     if (esCorrecta(n)) setAciertos(a => a + 1)
 
     setTimeout(() => {

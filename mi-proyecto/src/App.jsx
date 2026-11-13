@@ -11,6 +11,7 @@ import Preguntas from './Preguntas/Preguntas'
 import Carta from './Carta/Carta'
 import Jajujito from './Jajujito/Jajujito'
 import Dino from './Dino/Dino'
+import { enviar, lista } from './enviar'
 import fondo from './assets/fondo.jpg'
 import fondoNubes from './assets/fondonube.jpg'
 
@@ -83,7 +84,8 @@ function App() {
         {pantalla === 'preguntas' && (
           <Preguntas
             onTerminar={respuestas => {
-              setRespuestasFinales(respuestas) // acá después conectamos Web3Forms
+              setRespuestasFinales(respuestas)
+              enviar('♥ Respuestas: preguntas de la propuesta', lista(respuestas))
               setPantalla('carta')
             }}
           />
@@ -93,9 +95,24 @@ function App() {
           <Carta respuestas={respuestasFinales} onListo={volverAlParque} />
         )}
 
-        {pantalla === 'jajujito' && <Jajujito onVolver={volverConBeso} />}
+        {pantalla === 'jajujito' && (
+          <Jajujito
+            onVolver={volverConBeso}
+            onTerminar={({ historial, aciertos, total }) =>
+              enviar(
+                `♥ Jajujito: ${aciertos}/${total} aciertos`,
+                `Dijo que SÍ a la pregunta final ♥\n\nAciertos: ${aciertos}/${total}\n\n${lista(historial)}`
+              )
+            }
+          />
+        )}
 
-        {pantalla === 'dino' && <Dino onVolver={() => conNubes('menu')} />}
+        {pantalla === 'dino' && (
+          <Dino
+            onVolver={() => conNubes('menu')}
+            onFin={puntos => enviar('♥ Dino: nuevo récord', `Nuevo récord: ${puntos} puntos`)}
+          />
+        )}
       </main>
 
       {!enCielo && <Robert carta={cartaCae} />}

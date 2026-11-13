@@ -131,13 +131,15 @@ function dibujar(ctx, j, imgs, abajo) {
 
 const pad = n => String(n).padStart(5, '0')
 
-function Dino({ onVolver }) {
+function Dino({ onVolver, onFin }) {
   const canvasRef = useRef(null)
   const imgs = useRef({})
   const juego = useRef(nuevo())
   const faseRef = useRef('intro')
   const teclas = useRef({ abajo: false })
   const perdioEn = useRef(0)
+  const onFinRef = useRef(onFin)
+  onFinRef.current = onFin
 
   const [fase, setFase] = useState('intro') // 'intro' | 'jugando' | 'perdio'
   const [puntos, setPuntos] = useState(0)
@@ -225,6 +227,8 @@ function Dino({ onVolver }) {
         if (choco) {
           j.muerto = true
           perdioEn.current = Date.now()
+          // solo te llega mail cuando bate su récord
+          if (n > (Number(localStorage.getItem('dinoRecord')) || 0)) onFinRef.current?.(n)
           registrar(n)
           cambiarFase('perdio')
         }
